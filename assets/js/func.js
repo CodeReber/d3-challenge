@@ -1,6 +1,6 @@
 function xScale(csvData, chosenXAxis) {
  
-    let xLinearScale = d3.scaleLinear()
+    var xLinearScale = d3.scaleLinear()
       .domain([d3.min(csvData, d => d[chosenXAxis]) * 0.9,
         d3.max(csvData, d => d[chosenXAxis]) * 1.1
       ])
@@ -12,7 +12,7 @@ function xScale(csvData, chosenXAxis) {
  
   function yScale(csvData, chosenYAxis) {
  
-    let yLinearScale = d3.scaleLinear()
+    var yLinearScale = d3.scaleLinear()
       .domain([d3.min(csvData, d => d[chosenYAxis]) - 1,
         d3.max(csvData, d => d[chosenYAxis]) + 1
       ])
@@ -23,7 +23,7 @@ function xScale(csvData, chosenXAxis) {
   
  
   function renderXAxes(newXScale, xAxis) {
-    let bottomAxis = d3.axisBottom(newXScale);
+    var bottomAxis = d3.axisBottom(newXScale);
   
     xAxis.transition()
       .duration(1000)
@@ -34,7 +34,7 @@ function xScale(csvData, chosenXAxis) {
   
   
   function renderYAxes(newYScale, yAxis) {
-    let leftAxis = d3.axisLeft(newYScale);
+    var leftAxis = d3.axisLeft(newYScale);
   
     yAxis.transition()
       .duration(1000)
@@ -82,7 +82,7 @@ function xScale(csvData, chosenXAxis) {
   }
   
  
-  let formatter = new Intl.NumberFormat('en-US', {
+  var formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
@@ -90,8 +90,8 @@ function xScale(csvData, chosenXAxis) {
  
   function updateToolTip(circlesGroup, chosenXAxis, chosenYAxis) {
   
-    let xpercentsign = "";
-    let xlabel = "";
+    var xpercentsign = "";
+    var xlabel = "";
     if (chosenXAxis === "poverty") {
       xlabel = "Poverty";
       xpercentsign = "%";
@@ -101,8 +101,8 @@ function xScale(csvData, chosenXAxis) {
       xlabel = "Income";
     }
   
-    let ypercentsign = "";
-    let ylabel = "";
+    var ypercentsign = "";
+    var ylabel = "";
     if (chosenYAxis === "healthcare") {
       ylabel = "Healthcare";
       ypercentsign = "%";
@@ -114,12 +114,12 @@ function xScale(csvData, chosenXAxis) {
       ypercentsign = "%";
     }
   
-    const toolTip = d3.tip()
+    var toolTip = d3.tip()
       .attr("class", "d3-tip")
       .offset([50, -75])
       .html(function(d) {
         if (chosenXAxis === "income"){
-          let incomelevel = formatter.format(d[chosenXAxis]);
+          var incomelevel = formatter.format(d[chosenXAxis]);
   
           return (`${d.state}<br>${xlabel}: ${incomelevel.substring(0, incomelevel.length-3)}${xpercentsign}<br>${ylabel}: ${d[chosenYAxis]}${ypercentsign}`)
         } else {
