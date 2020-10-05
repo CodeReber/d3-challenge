@@ -1,36 +1,36 @@
 // @TODO: YOUR CODE HERE!
-const svgWidth = 960;
-const svgHeight = 500;
+var svgWidth = 960;
+var svgHeight = 500;
 
-const margin = {
+var margin = {
   top: 20,
   right: 40,
   bottom: 80,
   left: 100
 };
 
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
 
  
-const svg = d3
+var svg = d3
   .select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight + 40);  
 
  
-const chartGroup = svg.append("g")
+var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
  
-let chosenXAxis = "poverty";
-let chosenYAxis = "healthcare";
+var chosenXAxis = "poverty";
+var chosenYAxis = "healthcare";
 
 (async function(){
 
    
-  const stateData = await d3.csv("assets/data/data.csv");
+  var stateData = await d3.csv("assets/data/data.csv");
 
    
   stateData.forEach(function(data) {
@@ -42,58 +42,58 @@ let chosenYAxis = "healthcare";
     data.income     = +data.income;
   });
  
-  let xLinearScale = xScale(stateData, chosenXAxis);
-  let yLinearScale = yScale(stateData, chosenYAxis);
+  var xLinearScale = xScale(stateData, chosenXAxis);
+  var yLinearScale = yScale(stateData, chosenYAxis);
 
    
-  let bottomAxis = d3.axisBottom(xLinearScale);
-  let leftAxis = d3.axisLeft(yLinearScale);
+  var bottomAxis = d3.axisBottom(xLinearScale);
+  var leftAxis = d3.axisLeft(yLinearScale);
 
   
-  let xAxis = chartGroup.append("g")
+  var xAxis = chartGroup.append("g")
     .attr("transform", `translate(0, ${height})`)
     .call(bottomAxis);
 
-  let yAxis = chartGroup.append("g")
+  var yAxis = chartGroup.append("g")
     .call(leftAxis);
 
  
-  let circlesGroup = chartGroup.selectAll("g circle")
+  var circlesGroup = chartGroup.selectAll("g circle")
     .data(stateData)
     .enter()
     .append("g");
   
-  let circlesXY = circlesGroup.append("circle")
+  var circlesXY = circlesGroup.append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d[chosenYAxis]))
     .attr("r", 15)
     .classed("stateCircle", true);
   
-  let circlesText = circlesGroup.append("text")
+  var circlesText = circlesGroup.append("text")
     .text(d => d.abbr)
     .attr("dx", d => xLinearScale(d[chosenXAxis]))
     .attr("dy", d => yLinearScale(d[chosenYAxis]) + 5)
     .classed("stateText", true);
 
    
-  const xlabelsGroup = chartGroup.append("g")
+  var xlabelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height})`);
 
-  const povertyLabel = xlabelsGroup.append("text")
+  var povertyLabel = xlabelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
     .attr("value", "poverty")  
     .text("In Poverty (%)")
     .classed("active", true);
 
-  const ageLabel = xlabelsGroup.append("text")
+  var ageLabel = xlabelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 60)
     .attr("value", "age")  
     .text("Age (Median)")
     .classed("inactive", true);
 
-  const incomeLabel = xlabelsGroup.append("text")
+  var incomeLabel = xlabelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 80)
     .attr("value", "income")  
@@ -101,9 +101,9 @@ let chosenYAxis = "healthcare";
     .classed("inactive", true);
 
  
-  const ylabelsGroup = chartGroup.append("g");
+  var ylabelsGroup = chartGroup.append("g");
 
-  const healthcareLabel = ylabelsGroup.append("text")
+  var healthcareLabel = ylabelsGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -(height / 2))
     .attr("y", -40)
@@ -111,7 +111,7 @@ let chosenYAxis = "healthcare";
     .text("Lacks Healthcare (%)")
     .classed("active", true);
 
-  const smokesLabel = ylabelsGroup.append("text")
+  var smokesLabel = ylabelsGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -(height / 2))
     .attr("y", -60)
@@ -119,7 +119,7 @@ let chosenYAxis = "healthcare";
     .text("Smokes (%)")
     .classed("inactive", true);
 
-  const obeseLabel = ylabelsGroup.append("text")
+  var obeseLabel = ylabelsGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -(height / 2))
     .attr("y", -80)
@@ -134,7 +134,7 @@ let chosenYAxis = "healthcare";
   xlabelsGroup.selectAll("text")
     .on("click", function() {
      
-    const value = d3.select(this).attr("value");
+    var value = d3.select(this).attr("value");
     if (value !== chosenXAxis) {
 
     
@@ -196,7 +196,7 @@ let chosenYAxis = "healthcare";
   ylabelsGroup.selectAll("text")
     .on("click", function() {
    
-    const value = d3.select(this).attr("value");
+    var value = d3.select(this).attr("value");
     if (value !== chosenYAxis) {
 
      
